@@ -2,9 +2,15 @@ import pymysql.err
 from flask import Flask, request
 import db_connector
 from datetime import datetime
+import os
+import signal
 
 app = Flask(__name__)
 
+@app.route('/stop_server')
+def stop_server():
+    os.kill(os.getpid(), signal.CTRL_C_EVENT)
+    return 'Server stopped'
 
 @app.route("/users/<user_id>", methods=['POST', 'GET', 'PUT', 'DELETE'])
 def get_user_name(user_id):
