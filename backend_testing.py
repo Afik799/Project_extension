@@ -1,14 +1,16 @@
 import requests
 import db_connector
 
-user_id = 9
-res = requests.post(url=f"http://localhost:5000/users/{int(user_id)}", json={"user_name": "eliran"})
+user_id = 57777
+user_name = "Daniel"
+user_json = {"user_name": f"{user_name}"}
+res = requests.post(url=f"http://0.0.0.0:5000/users/{int(user_id)}", json=user_json)
 if res.ok:
     print(f"Test succeeded! user {user_id} was added")
 else:
     print(f"ID: {user_id} already exists!")
 
-res2 = requests.get(url=f"http://localhost:5000/users/{user_id}")
+res2 = requests.get(url=f"http://0.0.0.0:5000/users/{int(user_id)}")
 print(res2)
 print(res2.json()["user_name"])
 

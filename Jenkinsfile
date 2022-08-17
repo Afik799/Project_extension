@@ -2,7 +2,7 @@ pipeline { agent any
 stages {
     stage('pulling_repo') {
         steps {
-            sh 'cd /Users/afik.navaro/DevOps_Class/Python_Project'
+            sh 'cd /Users/afik.navaro/DevOps_Class/Project_extension/Project'
             sh 'git init'
             sh 'git pull https://github.com/Afik799/Project'
         }
