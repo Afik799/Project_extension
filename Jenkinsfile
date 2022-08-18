@@ -4,7 +4,6 @@ stages {
         steps {
             sh 'cd /Users/afik.navaro/DevOps_Class/Project_extension/Project'
             sh 'git init'
-            sh 'git checkout all_files'
             sh 'git pull https://github.com/Afik799/Project_extension'
         }
     }
