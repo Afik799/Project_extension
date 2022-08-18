@@ -35,7 +35,7 @@ stages {
     }
     stage('compose_version') {
         steps {
-            sh 'echo IMAGE_TAG=$(BUILD_NUMBER) > .env'
+            sh 'echo IMAGE_TAG=$BUILD_NUMBER > .env'
         }
     }
     stage('docker_compose') {
