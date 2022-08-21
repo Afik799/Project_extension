@@ -3,5 +3,5 @@ services:
   rest_app:
     ports:
     - "5000:5000"
-    image: "rest_app:$(IMAGE_TAG)"
+    image: "rest_app:${IMAGE_TAG}"
 
