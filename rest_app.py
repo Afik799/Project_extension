@@ -1,6 +1,6 @@
 import pymysql.err
 from flask import Flask, request
-from Project_extension import db_connector
+import db_connector
 from datetime import datetime
 import os
 import signal
