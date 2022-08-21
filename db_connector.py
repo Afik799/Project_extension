@@ -30,6 +30,10 @@ def delete_user(user_id):
     cursor.execute(f"DELETE FROM P0PvfGbwKl.users WHERE user_id = {user_id}")
     return cursor.rowcount
 
+
+cursor.close()
+conn.close()
+
 # cursor.execute(f"SELECT * FROM P0PvfGbwKl.users;")
 #
 # for row in cursor:

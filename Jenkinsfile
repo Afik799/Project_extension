@@ -9,7 +9,7 @@ stages {
     }
     stage('run_backend_app') {
         steps {
-            sh 'python3 rest_app.py'
+            sh 'nohup python3 rest_app.py &'
         }
     }
     stage('run_backend_test') {
