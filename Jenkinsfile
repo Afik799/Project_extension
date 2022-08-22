@@ -51,7 +51,7 @@ stages {
     stage ('docker_down') {
         steps {
             sh 'docker-compose down'
-            sh 'docker rmi rest_app'
+            sh 'docker rmi rest_app:$BUILD_NUMBER'
         }
     }
 }
