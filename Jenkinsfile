@@ -22,62 +22,56 @@ stages {
             sh 'python3 clear_environemnt.py'
         }
     }
-//     stage('install docker') {
-//         steps {
-//             sh 'apt-get update'
-//             sh 'apt-get install \
-//                 ca-certificates \
-//                 curl \
-//                 gnupg \
-//                 lsb-release'
-//             sh 'mkdir -p /etc/apt/keyrings'
-//             sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
-//             sh 'echo \
-//                "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-//                 $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-//             sh 'apt-get update'
-//             sh 'apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
-//
-//         }
-//     }
-//     stage('build_docker') {
-//         steps {
-//             sh 'docker build -t rest_app .'
-//         }
-//     }
-//     stage('push_docker_image') {
-//         steps {
-//             sh 'docker tag rest_app afik799/project_extension:rest_app'
-//             sh 'docker push afik799/project_extension:rest_app'
-//         }
-//     }
-//     stage('compose_version') {
-//         steps {
-//             sh 'echo IMAGE_TAG=$BUILD_NUMBER > .env'
-//         }
-//     }
-//     stage('docker_compose') {
-//         steps {
-//             sh 'docker-compose up -d'
-//         }
-//     }
-//     stage('test_dockerized_api') {
-//         steps {
-//             sh 'python3 backend_testing.py'
-//         }
-//     }
-//     stage ('docker_down') {
-//         steps {
-//             sh 'docker-compose down'
-//             sh 'docker rmi rest_app'
-//         }
-//     }
-// }
-// }
-stage ('docker_down') {
+    stage('install docker') {
         steps {
-            sh 'docker ps'
+            sh 'sudo apt-get update'
+            sh 'sudo apt-get install \
+                ca-certificates \
+                curl \
+                gnupg \
+                lsb-release'
+            sh 'sudo mkdir -p /etc/apt/keyrings'
+            sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
+            sh 'echo \
+               "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+                $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+            sh 'sudo apt-get update'
+            sh 'sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
+
         }
     }
+    stage('build_docker') {
+        steps { script {
+            dockerImage = docker.build registry
+        }
+        }
     }
+    stage('push_docker_image') {
+        steps {
+            sh 'docker tag rest_app afik799/project_extension:rest_app'
+            sh 'docker push afik799/project_extension:rest_app'
+        }
     }
+    stage('compose_version') {
+        steps {
+            sh 'echo IMAGE_TAG=$BUILD_NUMBER > .env'
+        }
+    }
+    stage('docker_compose') {
+        steps {
+            sh 'docker-compose up -d'
+        }
+    }
+    stage('test_dockerized_api') {
+        steps {
+            sh 'python3 backend_testing.py'
+        }
+    }
+    stage ('docker_down') {
+        steps {
+            sh 'docker-compose down'
+            sh 'docker rmi rest_app'
+        }
+    }
+}
+}
