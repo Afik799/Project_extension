@@ -23,9 +23,8 @@ stages {
         }
     }
     stage('build_docker') {
-        steps { script {
-            dockerImage = docker.build registry
-        }
+        steps {
+            sh 'docker build -t rest_app .'
         }
     }
     stage('push_docker_image') {
