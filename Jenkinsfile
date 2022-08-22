@@ -29,7 +29,7 @@ stages {
     }
     stage('push_docker_image') {
         steps {
-            sh 'docker tag rest_app afik799/project_extension:rest_app'
+            sh 'docker tag rest_app:$BUILD_NUMBER afik799/project_extension:rest_app'
             sh 'docker push afik799/project_extension:rest_app'
         }
     }
