@@ -79,3 +79,5 @@ stage ('docker_down') {
             sh 'docker ps'
         }
     }
+    }
+    }
