@@ -24,7 +24,7 @@ stages {
     }
     stage('build_docker') {
         steps {
-            sh 'docker build -t rest_app .'
+            sh 'docker build -t rest_app:$BUILD_NUMBER .'
         }
     }
     stage('push_docker_image') {
